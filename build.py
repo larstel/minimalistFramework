@@ -3,6 +3,8 @@ from distutils.dir_util import copy_tree
 from bs4 import BeautifulSoup
 import re, os, json, shutil
 from unidecode import unidecode
+import argparse
+from datetime import datetime
 
 # import configuration json
 f = open("../buildConfig.json")
@@ -18,6 +20,16 @@ copy_tree("../static", "./build/static")
 
 # copy icon into build
 shutil.copyfile(build_config["iconPath"], "./build/static/icon.svg")
+
+# command line arguments
+parser = argparse.ArgumentParser(description="A script that accepts a command-line argument.")
+parser.add_argument('-p', '--production', action='store_true', help="builds for production")
+args = parser.parse_args()
+
+if(args.production):
+    preUrl = ""
+else:
+    preUrl = os.getcwd() + "/build"
 
 def replace_umlauts(string):
     string = string.replace("ae", "ä")
@@ -156,17 +168,29 @@ for language_code in build_config["availableLanguages"]:
 
                         if(page_name_of_list not in build_config["navigationBlacklist"]):
                             if page_name_of_list != page_name.split("_")[1].split(".")[0]:
-                                nav_html = nav_html + f'\n<a class="navigationElement" href="/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
+                                nav_html = nav_html + f'\n<a class="navigationElement" href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
                             else:
-                                nav_html = nav_html + f'\n<a class="navigationElement active" href="/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html" id="_nav" onclick="onSideNavigationLinkClicked(_nav)">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
+                                nav_html = nav_html + f'\n<a class="navigationElement active" href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html" id="_nav" onclick="onSideNavigationLinkClicked(_nav)">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
                         else:
                             content_copy = re.sub('<builder-header-tags></builder-header-tags>', '<meta name="robots" content="noindex, nofollow">', content_copy)
 
 
                     content_copy = re.sub('<builder-nav></builder-nav>', f'{nav_html}', content_copy)
 
-                    # translate with the general localozation
+                    # translate with the general localization
                     content_copy = translate_text(content_copy, general_localization, language_code, "../" + build_config["contentTemplatesPath"] + "localization.json")
+
+                    # add footer
+                    footer = \
+                    f'<footer class="footer"> \
+                        <span>© {build_config["copyrightSince"]} - {datetime.now().year} {build_config["header"].lower()}{build_config["subHeader"].lower()} |</span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["impressum"][language_code].lower())}.html">{general_localization["impressum"][language_code].capitalize()}</a>&nbsp;|</span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzhinweise"][language_code].capitalize())}</a>&nbsp;|</span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzeinstellungen"][language_code].capitalize())}</a>&nbsp;|</span> \
+                        <span><a href="javascript:writeEmail();">{replace_umlauts(general_localization["kontakt"][language_code].capitalize())}</a></span> \
+                    </footer>'
+
+                    content_copy = re.sub('<builder-footer></builder-footer>', f'{footer}', content_copy)
 
                     # safe as new file
                     translated_filename = translation_dict["filename"][language_code]
