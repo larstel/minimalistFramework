@@ -53,7 +53,8 @@ def use_unidecode(data):
 def translate_text(input_text, translation_dict, language_code, file_name):
     # Regular expression to find text within <translate></translate> tags
     translate_pattern = re.compile(r'<translate>(.*?)<\/translate>', re.DOTALL)
-    pattern = re.compile(r'(m-href="#([\w-]+)"|m-id="([\w-]+)")')
+    pattern = re.compile(r'(m-href="#([\w-]+)"|m-href="([^#"]+)"|m-id="([\w-]+)")'
+)
     
     def replace_translation(match):
         # Extract the text within <translate></translate> tags
@@ -73,14 +74,24 @@ def translate_text(input_text, translation_dict, language_code, file_name):
 
     def replace_match(match):
         if match.group(2):  # for m-href="#word"
-            attribute = 'href'
+            attribute = 'href-hashtag'
             word = match.group(2)
-        else:  # for m-id="word"
-            attribute = 'id'
+        elif match.group(3): # for m-href="word"
+            attribute = 'href'
             word = match.group(3)
+        else:   # for m-id="word"
+            attribute = 'id'
+            word = match.group(4)
+
+
         
         if word in translation_dict and language_code in translation_dict[word]:
-            return f'{attribute}="#{translation_dict[word][language_code]}"' if attribute == 'href' else f'{attribute}="{translation_dict[word][language_code]}"'
+            if attribute == 'href-hashtag':
+                return f'href="#{use_unidecode(translation_dict[word][language_code])}"'
+            elif attribute == 'id':
+                return f'id="{use_unidecode(translation_dict[word][language_code])}"' 
+            else:
+                return f'href="{use_unidecode(translation_dict[word][language_code])}"' 
         else:
             return match.group(0)  # Return the original match if word or language_code is not in the dictionary
 
@@ -171,8 +182,9 @@ for language_code in build_config["availableLanguages"]:
                                 nav_html = nav_html + f'\n<a class="navigationElement" href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
                             else:
                                 nav_html = nav_html + f'\n<a class="navigationElement active" href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html" id="_nav" onclick="onSideNavigationLinkClicked(_nav)">{replace_umlauts(translation_dict_of_list["filename"][language_code].capitalize())}</a>'
-                        else:
-                            content_copy = re.sub('<builder-header-tags></builder-header-tags>', '<meta name="robots" content="noindex, nofollow">', content_copy)
+                        elif(page_name_of_list in build_config["navigationBlacklist"]):
+                            print(page_name_of_list)
+                            # content_copy = re.sub('<builder-header-tags></builder-header-tags>', '<meta name="robots" content="noindex, nofollow">', content_copy)
 
 
                     content_copy = re.sub('<builder-nav></builder-nav>', f'{nav_html}', content_copy)
@@ -184,10 +196,10 @@ for language_code in build_config["availableLanguages"]:
                     footer = \
                     f'<footer class="footer"> \
                         <span>© {build_config["copyrightSince"]} - {datetime.now().year} {build_config["header"].lower()}{build_config["subHeader"].lower()} |</span> \
-                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["impressum"][language_code].lower())}.html">{general_localization["impressum"][language_code].capitalize()}</a>&nbsp;|</span> \
-                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzhinweise"][language_code].capitalize())}</a>&nbsp;|</span> \
-                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzeinstellungen"][language_code].capitalize())}</a>&nbsp;|</span> \
-                        <span><a href="javascript:writeEmail();">{replace_umlauts(general_localization["kontakt"][language_code].capitalize())}</a></span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["impressum_filename"][language_code].lower())}.html">{general_localization["impressum"][language_code].capitalize()}</a>&nbsp;|</span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise_filename"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzhinweise"][language_code].capitalize())}</a>&nbsp;|</span> \
+                        <span><a href="{preUrl}/{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(general_localization["datenschutzhinweise_filename"][language_code].lower())}.html">{replace_umlauts(general_localization["datenschutzeinstellungen"][language_code].capitalize())}</a>&nbsp;|</span> \
+                        <span><button class="footer-button" onclick="writeEmail();">{replace_umlauts(general_localization["kontakt"][language_code].capitalize())}</button></span> \
                     </footer>'
 
                     content_copy = re.sub('<builder-footer></builder-footer>', f'{footer}', content_copy)
