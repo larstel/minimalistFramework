@@ -20,14 +20,14 @@
 <p align="center">
     A lightweight framework for building web frontends, designed to minimize boilerplate code and repetitive tasks while leaving you in control of all key decisions. Developed in Python.
     <br />
-    <a href="https://github.com/larstel/minimalist"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/larstel/minimalistFramework"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/larstel/minimalist">View Demo</a>
+    <a href="https://grammaticus.io">View Demo</a>
     ·
-    <a href="https://github.com/larstel/minimalist/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/larstel/minimalistFramework/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
-    <a href="https://github.com/larstel/minimalist/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/larstel/minimalistFramework/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
@@ -69,9 +69,11 @@ In a nutshell, you create files in a specific structure, and the framework takes
 * Helps organize your project structure
 * Automatically manages URL structure
   * Supports multiple spoken languages
-  * Organizes URLs for all pages
 * Enhances your site’s SEO by implementing various strategies automatically
+  * supports keywords and descriptions
+  * adds meta tags for pages which should not be indexed and followed by search engines (blacklist configuration)
 * Simplifies localization
+  * localization files for every page
 * Builds the project and provides a ready-to-deploy directory
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -124,7 +126,7 @@ In a nutshell, you create files in a specific structure, and the framework takes
 | -------------------- | ----------------------------- | ---------------------------------------- |
 | contentTemplatesPath | "contentTemplates/"           | the directory where all pages are        |
 | availableLanguages   | ["en", "de"]                  | all available languages of the website   |
-| navigationBlacklist  | "imprint", "privacy", "error" | all sites which should not appear in nav |
+| navigationBlacklist  | "imprint.html", "privacy.html", "error.html" | all sites which should not appear in nav. It also adds a meta tag which stops search engines to follow and index the pages. |
 | iconPath             | "static/icon.svg"             | the path where the icon exists           |
 | header               | "Title"                       | the header at the top of all pages       |
 | subHeader            | "sub-title"                   | the sub header at the top of all pages   |
@@ -135,7 +137,7 @@ In a nutshell, you create files in a specific structure, and the framework takes
 {
     "contentTemplatesPath": "contentTemplates/",
     "availableLanguages": ["en"],
-    "navigationBlacklist": [],
+    "navigationBlacklist": ["imprint.html", "privacy.html", "error.html"],
     "iconPath": "static/icon.svg",
     "header": "Title",
     "subHeader": "sub-title"
@@ -193,7 +195,7 @@ File must at least contain the following content:
 
 - [ ] enable the creation of multiple HTML templates for the entire project
 
-See the [open issues](https://github.com/larstel/minimalist/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -216,8 +218,8 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- ### Top contributors:
 
-<a href="https://github.com/larstel/minimalist/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=larstel/minimalist" alt="contrib.rocks image" />
+<a href="https://github.com/larstel/minimalistFramework/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=larstel/minimalistFramework" alt="contrib.rocks image" />
 </a> -->
 
 <!-- LICENSE -->
