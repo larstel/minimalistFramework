@@ -126,10 +126,15 @@ In a nutshell, you create files in a specific structure, and the framework takes
 | -------------------- | ----------------------------- | ---------------------------------------- |
 | contentTemplatesPath | "contentTemplates/"           | the directory where all pages are        |
 | availableLanguages   | ["en", "de"]                  | all available languages of the website   |
-| navigationBlacklist  | "imprint.html", "privacy.html", "error.html" | all sites which should not appear in nav. It also adds a meta tag which stops search engines to follow and index the pages. |
+| mainLanguage         | "en"                          | the main language the website is developed for   |
+| navigationBlacklist  | "index.html", "imprint.html", "privacy.html", "error.html" | all sites which should not appear in nav. It also adds a meta tag which stops search engines to follow and index the pages. |
+| noindex  | "imprint.html", "privacy.html", "error.html" | all sites which should not appear in search engines. |
+| noNavigation  | "imprint.html", "privacy.html", "error.html" | all sites which should not have a navigation. |
 | iconPath             | "static/icon.svg"             | the path where the icon exists           |
 | header               | "Title"                       | the header at the top of all pages       |
 | subHeader            | "sub-title"                   | the sub header at the top of all pages   |
+| copyrightSince            | "2021"                   | since when the copyright exists   |
+| domain            | "github.com"                   | the domain the website should be use   |
 
 ###### Example:
 
@@ -137,10 +142,15 @@ In a nutshell, you create files in a specific structure, and the framework takes
 {
     "contentTemplatesPath": "contentTemplates/",
     "availableLanguages": ["en"],
+    "mainLanguage": "en",
     "navigationBlacklist": ["imprint.html", "privacy.html", "error.html"],
+    "noindex": ["imprint.html", "privacy.html", "error.html"],
+    "noNavigation": [index.html],
     "iconPath": "static/icon.svg",
     "header": "Title",
-    "subHeader": "sub-title"
+    "subHeader": "sub-title",
+    "copyrightSince": "2021",
+    "domain": "github.com"
 }
 ~~~~
 
