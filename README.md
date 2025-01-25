@@ -72,6 +72,7 @@ In a nutshell, you create files in a specific structure, and the framework takes
 * Enhances your site’s SEO by implementing various strategies automatically
   * supports keywords and descriptions
   * adds meta tags for pages which should not be indexed and followed by search engines (blacklist configuration)
+  * creates a ready to use sitemap.xml for search engines
 * Simplifies localization
   * localization files for every page
 * Builds the project and provides a ready-to-deploy directory
@@ -204,6 +205,10 @@ File must at least contain the following content:
 ## Roadmap
 
 - [ ] enable the creation of multiple HTML templates for the entire project
+- [ ] customizable footer
+- [ ] customizable navigation
+- [ ] formatting correction for inserted dynamic content
+- [ ] live building after changes made
 
 See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
 
