@@ -37,7 +37,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#about">About The Project</a>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -45,7 +45,7 @@
         <!-- <li><a href="#installation">Installation</a></li> -->
       </ul>
     </li>
-    <!-- <li><a href="#usage">Usage</a></li> -->
+    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <!-- <li><a href="#contributing">Contributing</a></li> -->
     <li><a href="#license">License</a></li>
@@ -55,7 +55,6 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
-
 ## About The Project
 
 This project offers a straightforward framework for building web frontends efficiently, with less overhead compared to larger frameworks.
@@ -200,6 +199,16 @@ File must at least contain the following content:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Usage
+To build the static html files:
+```sh
+    python3 build.py
+```
+To start a live server and automatic page building:
+```sh
+    python3 serve.py
+```
+
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -208,7 +217,6 @@ File must at least contain the following content:
 - [ ] customizable footer
 - [ ] customizable navigation
 - [ ] formatting correction for inserted dynamic content
-- [ ] live building after changes made
 
 See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
 
