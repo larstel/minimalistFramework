@@ -52,8 +52,6 @@ def build_sites():
 
                 sitemap[language_code].append(output_file)
 
-    # create sitemap xml
-
     create_sitemap(sitemap, build_config)
 
 if __name__ == "__main__":

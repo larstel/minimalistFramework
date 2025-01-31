@@ -18,10 +18,10 @@ def build_footer(build_config, language_code, general_localization):
     
     return (
         f'<footer class="footer">'
-        f'    <span>{copyright_text} |</span>'
-        f'    <span>{impressum}&nbsp;|</span>'
-        f'    <span>{datenschutzhinweise}&nbsp;|</span>'
-        f'    <span>{datenschutzeinstellungen}&nbsp;|</span>'
-        f'    <span>{kontakt_button}</span>'
+        f'<span>{copyright_text} |</span>'
+        f'<span>{impressum}&nbsp;|</span>'
+        f'<span>{datenschutzhinweise}&nbsp;|</span>'
+        f'<span>{datenschutzeinstellungen}&nbsp;|</span>'
+        f'<span>{kontakt_button}</span>'
         f'</footer>'
     )

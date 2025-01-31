@@ -17,11 +17,11 @@ def build_navigation(build_config, page_file_name, language_code, general_locali
 
             if(page_name_of_list not in build_config["navigationBlacklist"]):
                 if page_name_of_list != page_file_name: # do not highlight navigation entry
-                    nav_html = nav_html + f'\n<a class="navigationElement" href="../../{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html">{translation_dict_of_list["title"][language_code]}</a>'
+                    nav_html = nav_html + f'\t<a class="navigationElement" href="../../{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html">{translation_dict_of_list["title"][language_code]}</a>\n'
                 else: # do highlight navigation entry
-                    nav_html = nav_html + f'\n<a class="navigationElement {"active" if page_name_of_list != page_file_name else ""}" href="../../{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html" id="_nav" onclick="onSideNavigationLinkClicked(_nav)">{translation_dict_of_list["title"][language_code]}</a>'
+                    nav_html = nav_html + f'\t<a class="navigationElement {"active" if page_name_of_list != page_file_name else ""}" href="../../{language_code}/{use_unidecode(general_localization["language"][language_code])}/{use_unidecode(translation_dict_of_list["filename"][language_code])}.html" id="_nav" onclick="onSideNavigationLinkClicked(_nav)">{translation_dict_of_list["title"][language_code]}</a>\n'
         
-        nav_html = nav_html + "</nav>"
+        nav_html = nav_html + "\n</nav>"
         return nav_html
     
     else:

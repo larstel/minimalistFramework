@@ -2,7 +2,7 @@ from builders.footer import *
 from builders.navigation import *
 from builders.translate import *
 from builders.meta import *
-
+import textwrap
 
 def apply_substitutions(content, build_config, translation_dict, language_code, general_localization, page_content, page_file_name):
     replacements = {
@@ -22,6 +22,10 @@ def apply_substitutions(content, build_config, translation_dict, language_code, 
     
     # Perform replacements
     for placeholder, value in replacements.items():
-        content = re.sub(placeholder, value, content)
+        match = re.search(rf"(\s*){re.escape(placeholder)}", content)
+        if(match):
+            indentation = match.group(1)
+            indented_value = textwrap.indent(value, indentation.lstrip("\n"))
+            content = content.replace(placeholder, indented_value)
     
     return content
