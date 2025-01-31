@@ -214,8 +214,6 @@ To start a live server and automatic page building:
 ## Roadmap
 
 - [ ] enable the creation of multiple HTML templates for the entire project
-- [ ] customizable footer
-- [ ] customizable navigation
 - [ ] formatting correction for inserted dynamic content
 
 See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
