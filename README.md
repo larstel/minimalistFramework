@@ -83,37 +83,61 @@ In a nutshell, you create files in a specific structure, and the framework takes
 ## Getting Started
 
 ### Installation
+The project can be initialized by executing a chain of command or manually.
 
+#### Single command
+copy and paste into terminal:
+```sh
+apt-get install -y python && \
+mkdir "directory-name" && cd "directory-name" && \
+touch buildConfig.json custom.css && \
+mkdir content && touch content/localization.json && \
+git init && \
+git submodule add https://github.com/larstel/minimalistFramework.git && \
+cd minimalistFramework && \
+pip3 install -r requirements.txt
 
+```
 
-1. If your project isn't already a Git repository, initialize it:
-    ```sh
-    git init
-    ```
-2. Clone the repository as a submodule in your project's root directory:
-    ```sh
-    git submodule add https://github.com/larstel/minimalist.git
-    ```
-3. Install Python:
+#### Manual initialization
+(if single command is not used)
+
+1. Install Python:
    ```sh
-   sudo apt-get install python
+   apt-get install python
    ```
-4. Install the required Python packages:
+2. Create project directory:
    ```sh
-   pip3 install -r requirements.txt
+   mkdir "directory-name"
    ```
-5. Create a buildConfig.json file in your project's root directory with the specified content:
+3. Create a buildConfig.json file in your project's root directory with the specified content:
     ```sh
     touch buildConfig.json
     ```
-6. Add a custom.css file to your project's root directory:
+4. Add a custom.css file to your project's root directory:
     ```sh
     touch custom.css
     ```
-7. Add a localization.json file to your project's content folder:
+5. Add a localization.json file to your project's content folder:
     ```sh
     touch localization.json
     ```
+6. If your project isn't already a Git repository, initialize it:
+    ```sh
+    git init
+    ```
+7. Clone the repository as a submodule in your project's root directory:
+    ```sh
+    git submodule add https://github.com/larstel/minimalistFramework.git
+    ```
+8. Switch to the directory the submodule is located at:
+   ```sh
+   cd minimalistFramework
+   ```
+9. Install the required Python packages:
+   ```sh
+   pip3 install -r requirements.txt
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
