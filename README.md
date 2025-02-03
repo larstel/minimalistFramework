@@ -150,6 +150,7 @@ The project can be initialized by executing a chain of command or manually.
 | subHeader            | "sub-title"                   | the sub header at the top of all pages   |
 | copyrightSince            | "2021"                   | since when the copyright exists   |
 | domain            | "github.com"                   | the domain the website should be use   |
+| hasFooter            | true | false                  | if a footer should be generated   |
 
 ###### Example:
 
@@ -165,7 +166,8 @@ The project can be initialized by executing a chain of command or manually.
     "header": "Title",
     "subHeader": "sub-title",
     "copyrightSince": "2021",
-    "domain": "github.com"
+    "domain": "github.com",
+    "hasFooter": "false"
 }
 ~~~~
 
