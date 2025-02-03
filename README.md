@@ -86,17 +86,8 @@ In a nutshell, you create files in a specific structure, and the framework takes
 The project can be initialized by executing a chain of command or manually.
 
 #### Single command
-copy and paste into terminal:
 ```sh
-apt-get install -y python && \
-mkdir "directory-name" && cd "directory-name" && \
-touch buildConfig.json custom.css && \
-mkdir content && touch content/localization.json && \
-git init && \
-git submodule add https://github.com/larstel/minimalistFramework.git && \
-cd minimalistFramework && \
-pip3 install -r requirements.txt
-
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/larstel/minimalistFrameworkInstall/refs/heads/main/install.sh)"
 ```
 
 #### Manual initialization
