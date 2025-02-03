@@ -174,7 +174,7 @@ The project can be initialized by executing a chain of command or manually.
 - for implementing custom css classes
 
 #### Localization
-##### general localization (mandatory)
+##### localization.json - general localization (mandatory)
 ###### Example:
 ~~~~
 {
