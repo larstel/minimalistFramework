@@ -160,7 +160,7 @@ The project can be initialized by executing a chain of command or manually.
     "mainLanguage": "en",
     "navigationBlacklist": ["imprint.html", "privacy.html", "error.html"],
     "noindex": ["imprint.html", "privacy.html", "error.html"],
-    "noNavigation": [index.html],
+    "noNavigation": ["index.html"],
     "iconPath": "static/icon.svg",
     "header": "Title",
     "subHeader": "sub-title",
@@ -217,11 +217,11 @@ File must at least contain the following content:
 ## Usage
 To build the static html files:
 ```sh
-    python3 build.py
+python3 build.py
 ```
 To start a live server and automatic page building:
 ```sh
-    python3 serve.py
+python3 serve.py
 ```
 
 <!-- ROADMAP -->
