@@ -2,3 +2,5 @@
 build/
 .vscode
 *.woff2
+builders/__pycache__
+utils/__pycache__
