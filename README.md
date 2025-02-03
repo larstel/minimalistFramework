@@ -11,7 +11,7 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/larstel/minimalist">
+  <a href="https://github.com/larstel/minimalistFramework">
     <img src="static/icon.svg" alt="Logo" width="80" height="80">
   </a>
 
