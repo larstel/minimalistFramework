@@ -230,6 +230,8 @@ python3 serve.py
 
 ## Roadmap
 
+- python script to create a basic new page (html content and localization page)
+
 See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
