@@ -13,7 +13,7 @@ def apply_substitutions(content, build_config, translation_dict, language_code, 
         '<builder-header></builder-header>': build_config["header"],
         '<builder-sub-header></builder-sub-header>': build_config["subHeader"],
         '<builder-content></builder-content>': page_content,
-        '<builder-nav></builder-nav>': build_navigation(build_config, page_file_name, language_code, general_localization),
+        '<builder-nav></builder-nav>': build_navigation(build_config, page_file_name, language_code, general_localization, page_content, translation_dict),
         '<builder-footer></builder-footer>': build_footer(build_config, language_code, general_localization),
         'builder-translation-language': f'var languages = {use_unidecode(general_localization["language"])}',
         'builder-translation-filename': f'var filenames = {use_unidecode(translation_dict["filename"])}',
@@ -31,5 +31,5 @@ def apply_substitutions(content, build_config, translation_dict, language_code, 
             else:
                 indented_value = value
             content = content.replace(placeholder, indented_value)
-    
+
     return content
