@@ -30,7 +30,7 @@ def build_navigation(build_config, page_file_name, language_code, general_locali
                     id_values = [div.get("data-static-id") for div in header_containers if div.has_attr("data-static-id")]
 
                     for entry in id_values:
-                        nav_html = nav_html + f'<a class="subNavigationElement" href="#{use_unidecode(translations[entry][language_code])}" id="{use_unidecode(translations[entry][language_code])}_nav" onclick="onSideNavigationLinkClicked()">{use_unidecode(translations[entry + "-title"][language_code])}</a>\n'
+                        nav_html = nav_html + f'<a class="subNavigationElement" href="#{use_unidecode(translations[entry][language_code])}" id="{use_unidecode(translations[entry][language_code])}_nav" onclick="onSideNavigationLinkClicked()">{translations[entry + "-title"][language_code]}</a>\n'
         
         nav_html = nav_html + "\n</nav>"
         return nav_html
