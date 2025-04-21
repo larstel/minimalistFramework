@@ -4,12 +4,11 @@ from utils.unicode import *
 from utils.substitutions import *
 from utils.logging import *
 from utils.sitemap import *
+from utils.files_and_directories import *
 
 def build_sites():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(script_dir)
+    change_to_directory_of_file(__file__)
 
-    print(os.path.dirname(os.path.realpath(__file__)))
     build_config = json.load(open("../buildConfig.json"))
     Path("./build").mkdir(exist_ok=True)
     copy_tree("../additionalFilesForServer", "./build")
@@ -18,29 +17,37 @@ def build_sites():
 
     sitemap = {}
 
+    logging.info("Start iterating through content.")
+
     for language_code in build_config["availableLanguages"]:
-        logging.info(f"==== Start building pages for the language: {language_code} ====")
+        logging.debug(f"==== Start building pages for the language: {language_code} ====")
 
         language_path = Path(f"./build/{language_code}/{use_unidecode(general_localization['language'][language_code])}")
         language_path.mkdir(parents=True, exist_ok=True)
-        logging.info("-> Folder created")
+        logging.debug("-> Folder created")
 
         content_path = f"../{build_config['contentTemplatesPath']}"
 
         sitemap[language_code] = []
-        for page_file_name in sorted(os.listdir(content_path)):
-            if page_file_name.endswith(".html"):
-                logging.info(f"== -> File: {page_file_name} loaded. ==")
+        sorted_page_file_names = sorted(os.listdir(content_path))
+        sorted_page_file_names = [file for file in sorted_page_file_names if file.endswith('.html')]
+        for i, current_page_file_name in enumerate(sorted_page_file_names):
 
-                page_path = os.path.join(content_path, page_file_name)
+            if current_page_file_name.endswith(".html"):
+                logging.debug(f"== -> File: {current_page_file_name} loaded. ==")
+
+                previous_page_file_name = sorted_page_file_names[i - 1] if i > 0 else None
+                next_page_file_name = sorted_page_file_names[i + 1] if i < len(sorted_page_file_names) - 1 else None
+
+                page_path = os.path.join(content_path, current_page_file_name)
                 localization_path = f"{os.path.splitext(page_path)[0]}_localization.json"
                 translation_dict = json.load(open(localization_path))
-                logging.info("-> Localization for page loaded. :" + localization_path)
+                logging.debug("-> Localization for page loaded. :" + localization_path)
 
                 page_content = translate_text(Path(page_path).read_text(), translation_dict, language_code)
-                logging.info("-> Page localized.")
+                logging.debug("-> Page localized.")
 
-                content_copy = apply_substitutions(template_html, build_config, translation_dict, language_code, general_localization, page_content, page_file_name)
+                content_copy = apply_substitutions(template_html, build_config, translation_dict, language_code, general_localization, page_content, current_page_file_name, previous_page_file_name, next_page_file_name)
 
                 content_copy = translate_text(content_copy, general_localization, language_code)
 
@@ -48,9 +55,11 @@ def build_sites():
                 output_file = language_path / f"{use_unidecode(translated_filename)}.html"
                 with open(output_file, 'w') as outfile:
                     outfile.write(content_copy)
-                logging.info(f"-> {translated_filename} saved.")
+                logging.debug(f"-> {translated_filename} saved.")
 
                 sitemap[language_code].append(output_file)
+
+    logging.info("Iteration finished.")
 
     create_sitemap(sitemap, build_config)
 

@@ -1,8 +1,10 @@
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from datetime import datetime
+from utils.logging import *
 
 def create_sitemap(pages_dict, build_config):
+    logging.info("Start generating sitemap.")
     current_date = datetime.now().strftime('%Y-%m-%d')
 
     urlset = ET.Element('urlset', xmlns="http://www.sitemaps.org/schemas/sitemap/0.9",
@@ -31,4 +33,4 @@ def create_sitemap(pages_dict, build_config):
     output_path = './build/sitemap.xml'
     tree.write(output_path, encoding='UTF-8', xml_declaration=True)
 
-    print(f"Sitemap successfully written to {output_path}")
+    logging.info(f"Sitemap successfully written to {output_path}")
