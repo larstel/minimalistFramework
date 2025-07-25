@@ -5,20 +5,24 @@ from builders.meta import *
 import textwrap, re
 
 def apply_substitutions(content, build_config, translation_dict, language_code, general_localization, page_content, page_file_name, previous, next_one):
-    replacements = {
-        'builder-content-language': language_code,
-        'builder-content-description': translation_dict["description"][language_code],
-        'builder-content-keywords': translation_dict["keywords"][language_code],
-        '<builder-title></builder-title>': f'{general_localization["title"][language_code]} | {translation_dict["title"][language_code]}',
-        '<builder-header></builder-header>': build_config["header"],
-        '<builder-sub-header></builder-sub-header>': build_config["subHeader"],
-        '<builder-content></builder-content>': page_content,
-        '<builder-nav></builder-nav>': build_navigation(build_config, page_file_name, language_code, general_localization, page_content, translation_dict),
-        '<builder-footer></builder-footer>': build_footer(build_config, language_code, general_localization, page_file_name, previous, next_one),
-        'builder-translation-language': f'var languages = {use_unidecode(general_localization["language"])}',
-        'builder-translation-filename': f'var filenames = {use_unidecode(translation_dict["filename"])}',
-        '<builder-header-tags></builder-header-tags>': build_meta_tags(build_config, page_file_name),
-    }
+    try:
+        replacements = {
+            'builder-content-language': language_code,
+            'builder-content-description': translation_dict["description"][language_code],
+            'builder-content-keywords': translation_dict["keywords"][language_code],
+            '<builder-title></builder-title>': f'{translation_dict["title"][language_code]}',
+            '<builder-header></builder-header>': build_config["header"],
+            '<builder-sub-header></builder-sub-header>': build_config["subHeader"],
+            '<builder-content></builder-content>': page_content,
+            '<builder-nav></builder-nav>': build_navigation(build_config, page_file_name, language_code, general_localization, page_content, translation_dict),
+            '<builder-footer></builder-footer>': build_footer(build_config, language_code, general_localization, page_file_name, previous, next_one),
+            'builder-translation-language': f'var languages = {use_unidecode(general_localization["language"])}',
+            'builder-translation-filename': f'var filenames = {use_unidecode(translation_dict["filename"])}',
+            '<builder-header-tags></builder-header-tags>': build_meta_tags(build_config, page_file_name),
+        }
+    except KeyError as e:
+        missing_key = e.args[0]
+        raise KeyError(f"In the localization json of file '{page_file_name}' is the following key missing: '{missing_key}'") from e
     
     for placeholder, value in replacements.items():
         match = re.search(rf"(\s*){re.escape(placeholder)}", content)
