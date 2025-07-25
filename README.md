@@ -105,30 +105,49 @@ The project can be initialized by executing a chain of command or manually.
     ```sh
     touch buildConfig.json
     ```
-4. Add a custom.css file to your project's root directory:
+4. Create a template.html file in your project's root directory:
     ```sh
-    touch custom.css
+    touch template.html
     ```
-5. Add a localization.json file to your project's content folder:
+5. Add all custom files like styles, images etc. under 'additionalFilesForServer/':
     ```sh
+    mkdir additionalFilesForServer
+    cd additionalFilesForServer
+    ```
+6. Add a content folder:
+    ```sh
+    cd ../../
+    mkdir contentTemplates
+    ```
+7. Add a content sub folder:
+    ```sh
+    cd contentTemplates
+    mkdir topic
+    ```
+8. Add a localization.json file to your project's content folder:
+    ```sh
+    cd topic
     touch localization.json
     ```
-6. If your project isn't already a Git repository, initialize it:
+9. If your project isn't already a Git repository, initialize it:
     ```sh
+    cd ../../
     git init
     ```
-7. Clone the repository as a submodule in your project's root directory:
+10. Clone the repository as a submodule in your project's directory:
     ```sh
     git submodule add https://github.com/larstel/minimalistFramework.git
     ```
-8. Switch to the directory the submodule is located at:
+11. Switch to the directory the submodule is located at:
    ```sh
    cd minimalistFramework
    ```
-9. Install the required Python packages:
+12. Install the required Python packages:
    ```sh
    pip3 install -r requirements.txt
    ```
+13. Fill the files, like in the following section described
+   
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -157,6 +176,7 @@ The project can be initialized by executing a chain of command or manually.
 ~~~~
 {
     "contentTemplatesPath": "contentTemplates/",
+    "content": ["topic"],
     "availableLanguages": ["en"],
     "mainLanguage": "en",
     "navigationBlacklist": ["imprint.html", "privacy.html", "error.html"],
@@ -208,9 +228,14 @@ File must at least contain the following content:
     "filename": {
         "de": "",
         "en": ""
+    },
+    "title": {
+        "de": "",
+        "en": ""
     }
 }
 ~~~~
+
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
