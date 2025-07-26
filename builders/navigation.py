@@ -14,7 +14,7 @@ def build_navigation(build_config, page_file_name, language_code, general_locali
         for page in sortedList:
             page_name_of_list = os.path.basename(page)
 
-            translation_dict_of_list = json.load(open("../" + build_config["contentTemplatesPath"] + page.split(".")[0] + "_localization.json"))
+            translation_dict_of_list = json.load(open("../" + build_config["contentTemplatesPath"] + "/" + page.split(".")[0] + "_localization.json"))
 
             if(page_name_of_list not in build_config["navigationBlacklist"]):
                 if page_name_of_list != page_file_name: # do not highlight navigation entry

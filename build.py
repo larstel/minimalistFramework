@@ -14,7 +14,10 @@ def build_sites():
     copy_tree("../additionalFilesForServer", "./build")
 
     for content in build_config["content"]:
-        general_localization = json.load(open("../" + build_config["contentTemplatesPath"] + "/" + content + "/" + "localization.json"))
+        if content.strip():
+            content = content + "/"
+
+        general_localization = json.load(open("../" + build_config["contentTemplatesPath"] + "/" + content + "localization.json"))
         template_html = Path("../template.html").read_text()
 
         sitemap = {}
@@ -24,7 +27,11 @@ def build_sites():
         for language_code in build_config["availableLanguages"]:
             logging.debug(f"==== Start building pages for the language: {language_code} ====")
 
-            language_path = Path(f"./build/{language_code}/{use_unidecode(general_localization['language'][language_code])}")
+            if content.strip():
+                language_path = Path(f"./build/{language_code}/{use_unidecode(general_localization[content][language_code])}")
+            else:
+                language_path = Path(f"./build/{language_code}/")
+
             language_path.mkdir(parents=True, exist_ok=True)
             logging.debug("-> Folder created")
 
