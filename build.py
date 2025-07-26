@@ -28,7 +28,7 @@ def build_sites():
             logging.debug(f"==== Start building pages for the language: {language_code} ====")
 
             if content.strip():
-                language_path = Path(f"./build/{language_code}/{use_unidecode(general_localization[content][language_code])}")
+                language_path = Path(f"./build/{language_code}/{use_unidecode(general_localization['language'][language_code])}")
             else:
                 language_path = Path(f"./build/{language_code}/")
 
@@ -36,7 +36,6 @@ def build_sites():
             logging.debug("-> Folder created")
 
             content_path = f"../{build_config['contentTemplatesPath']}/{content}"
-            print(content_path)
 
             sitemap[language_code] = []
             sorted_page_file_names = sorted(os.listdir(content_path))
@@ -48,6 +47,12 @@ def build_sites():
 
                     previous_page_file_name = sorted_page_file_names[i - 1] if i > 0 else None
                     next_page_file_name = sorted_page_file_names[i + 1] if i < len(sorted_page_file_names) - 1 else None
+                    if content.strip():
+                        if previous_page_file_name is not None:
+                            previous_page_file_name = content + "/" + previous_page_file_name
+                        if next_page_file_name is not None:
+                            next_page_file_name = content + "/" + next_page_file_name
+
 
                     page_path = os.path.join(content_path, current_page_file_name)
                     localization_path = f"{os.path.splitext(page_path)[0]}_localization.json"
