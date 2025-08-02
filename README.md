@@ -1,24 +1,15 @@
 <a id="readme-top"></a>
 
-<!-- [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url] 
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url] -->
-
-<!-- PROJECT LOGO -->
-
 <br />
 <div align="center">
   <a href="https://github.com/larstel/minimalistFramework">
     <img src="static/icon.svg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Minimalist Framework</h3>
+<h3 align="center">minimalist.build</h3>
 
 <p align="center">
-    A lightweight framework for building web frontends, designed to minimize boilerplate code and repetitive tasks while leaving you in control of all key decisions. Developed in Python.
+    A lightweight framework for building web frontends, designed to minimize boilerplate code and repetitive tasks while leaving you in control of all key decisions.
     <br />
     <a href="https://github.com/larstel/minimalistFramework"><strong>Explore the docs »</strong></a>
     <br />
@@ -41,57 +32,34 @@
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
-      <ul>
-        <!-- <li><a href="#installation">Installation</a></li> -->
-      </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <!-- <li><a href="#contributing">Contributing</a></li> -->
+    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+# About The Project
 
 This project offers a straightforward framework for building web frontends efficiently, with less overhead compared to larger frameworks.
 
 In a nutshell, you create files in a specific structure, and the framework takes care of building an entire website from them.
 
-### Features
-* Eliminates duplicated code
-  * Automatically generates navigation and header and inserts it on every page
-  * Write pages in a single spoken language, and the framework assists with localization
-* Helps organize your project structure
-* Automatically manages URL structure
-  * Supports multiple spoken languages
-* Enhances your site’s SEO by implementing various strategies automatically
-  * supports keywords and descriptions
-  * adds meta tags for pages which should not be indexed and followed by search engines (blacklist configuration)
-  * creates a ready to use sitemap.xml for search engines
-* Simplifies localization
-  * localization files for every page
-* Builds the project and provides a ready-to-deploy directory
+## Features
+* handles repetitive code such as headers, footers and navigation
+* uses localization files to translate pages into different languages
+* helps organize the project structure
+* automatically applies various SEO strategies
+* provides a ready-to-deploy directory
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
-## Getting Started
-
-### Installation
-The project can be initialized by executing a chain of command or manually.
-
-#### Single command
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/larstel/minimalistFrameworkInstall/refs/heads/main/install.sh)"
-```
-
-#### Manual initialization
-(if single command is not used)
+# Getting Started
 
 1. Install Python:
    ```sh
@@ -101,7 +69,7 @@ The project can be initialized by executing a chain of command or manually.
    ```sh
    mkdir "directory-name"
    ```
-3. Create a buildConfig.json file in your project's root directory with the specified content:
+3. Create a buildConfig.json file in your project's root directory:
     ```sh
     touch buildConfig.json
     ```
@@ -112,21 +80,19 @@ The project can be initialized by executing a chain of command or manually.
 5. Add all custom files like styles, images etc. under 'additionalFilesForServer/':
     ```sh
     mkdir additionalFilesForServer
-    cd additionalFilesForServer
     ```
 6. Add a content folder:
     ```sh
-    cd ../../
     mkdir contentTemplates
     ```
-7. Add a content sub folder:
+7. (optional) add a content sub folder:
     ```sh
     cd contentTemplates
     mkdir topic
     ```
 8. Add a localization.json file to your project's content folder:
     ```sh
-    cd topic
+    (optional) cd topic
     touch localization.json
     ```
 9. If your project isn't already a Git repository, initialize it:
@@ -139,26 +105,42 @@ The project can be initialized by executing a chain of command or manually.
     git submodule add https://github.com/larstel/minimalistFramework.git
     ```
 11. Switch to the directory the submodule is located at:
-   ```sh
-   cd minimalistFramework
-   ```
+    ```sh
+    cd minimalistFramework
+    ```
 12. Install the required Python packages:
-   ```sh
-   pip3 install -r requirements.txt
-   ```
+    ```sh
+    pip3 install -r requirements.txt
+    ```
 13. Fill the files, like in the following section described
    
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### buildConfig.json (mandatory)<a id="buildConfig"></a>
+## template.html
+The template html is the template every component is using as ground work.
 
-##### available configs (currently all mandatory):
+### builder content tag
+| tag         | example          | description          |
+| -------------------- | ----------------------------- | ---------------------------------------- |
+| `<builder-content></builder-content>` |           |  copy the components content into this positon       |
+| `<builder-title></builder-title>`     | `<title><builder-title></builder-title></title>` | gets the title defined in the components localization file |
+| `<builder-header-tags></builder-header-tags>` |           | enable the feature of noindex config in buildConfig.json        |
+| `<builder-header></builder-header>` |           |  get header title defined in buildConfig.json       |
+| `<builder-sub-header></builder-sub-header>` |           |         |
+| `<html lang="builder-content-language"></html>` |           |         |
+| `<meta name="description" content="builder-content-description">` |           |         |
+| `<meta name="keywords" content="builder-content-keywords">` |           |         |
+
+## buildConfig.json (mandatory)<a id="buildConfig"></a>
+
+### available configs (currently all mandatory):
 
 
 | config               | example                       | description                              |
 | -------------------- | ----------------------------- | ---------------------------------------- |
 | contentTemplatesPath | "contentTemplates/"           | the directory where all pages are        |
+| content              | "topic" or ""                 | the sub directory where all pages are        |
 | availableLanguages   | ["en", "de"]                  | all available languages of the website   |
 | mainLanguage         | "en"                          | the main language the website is developed for   |
 | navigationBlacklist  | "index.html", "imprint.html", "privacy.html", "error.html" | all sites which should not appear in nav. It also adds a meta tag which stops search engines to follow and index the pages. |
@@ -171,12 +153,12 @@ The project can be initialized by executing a chain of command or manually.
 | domain            | "github.com"                   | the domain the website should be use   |
 | hasFooter            | true | false                  | if a footer should be generated   |
 
-###### Example:
+### Example:
 
 ~~~~
 {
     "contentTemplatesPath": "contentTemplates/",
-    "content": ["topic"],
+    "content": [""],
     "availableLanguages": ["en"],
     "mainLanguage": "en",
     "navigationBlacklist": ["imprint.html", "privacy.html", "error.html"],
@@ -191,13 +173,13 @@ The project can be initialized by executing a chain of command or manually.
 }
 ~~~~
 
-#### custom.css (mandatory)
+## custom.css (mandatory)
 
 - for implementing custom css classes
 
-#### Localization
-##### localization.json - general localization (mandatory)
-###### Example:
+## Localization
+### localization.json - general localization (mandatory)
+### Example:
 ~~~~
 {
     "language": {
@@ -207,7 +189,7 @@ The project can be initialized by executing a chain of command or manually.
 }
 ~~~~
 
-##### component localization
+## component localization
 
 
 - each content template needs its own localization file
@@ -236,12 +218,15 @@ File must at least contain the following content:
 }
 ~~~~
 
+## contentTemplates
 
-<!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
+insert all pages/components here
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Usage
+# Usage
 To build the static html files:
 ```sh
 python3 build.py
@@ -253,9 +238,7 @@ python3 serve.py
 
 <!-- ROADMAP -->
 
-## Roadmap
-
-- python script to create a basic new page (html content and localization page)
+# Roadmap
 
 See the [open issues](https://github.com/larstel/minimalistFramework/issues) for a full list of proposed features (and known issues).
 
@@ -263,7 +246,7 @@ See the [open issues](https://github.com/larstel/minimalistFramework/issues) for
 
 <!-- CONTRIBUTING -->
 
-## Contributing
+# Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -278,32 +261,10 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ### Top contributors:
-
-<a href="https://github.com/larstel/minimalistFramework/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=larstel/minimalistFramework" alt="contrib.rocks image" />
-</a> -->
-
 <!-- LICENSE -->
 
-## License
+# License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- CONTACT -->
-
-<!-- ACKNOWLEDGMENTS -->
-
-<!-- ## Acknowledgments
-
-* []()
-* []()
-* []() -->
-
-<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
-
-<!-- MARKDOWN LINKS & IMAGES -->
-
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
